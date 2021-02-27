@@ -16,4 +16,16 @@ public class KilledByItToSpawn : MonoBehaviour
     {
         
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.GetComponent<PlayerMovement>())
+        {
+            collision.GetComponent<PlayerMovement>().Die();
+            if (!spawnObject.active)
+            {
+                spawnObject.SetActive(true);
+            }
+        }
+    }
 }

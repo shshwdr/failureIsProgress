@@ -11,6 +11,9 @@ public class PlayerMovement : MonoBehaviour
     float horizontalMove = 0f;
     bool jump = false;
     bool crouch = false;
+    public GameObject gameOverUI;
+    bool isDead;
+    public Transform spawnPosition;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,6 +24,14 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (isDead)
+        {
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                Respawn();
+            }
+            return;
+        }
         horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
         animator.SetFloat("Speed", Mathf.Abs(horizontalMove));
         if (Input.GetKeyDown(KeyCode.UpArrow))
@@ -45,5 +56,18 @@ public class PlayerMovement : MonoBehaviour
     {
         controller.Move(horizontalMove * Time.fixedDeltaTime, crouch, jump);
         jump = false;
+    }
+
+    public void Die()
+    {
+        isDead = true;
+        gameOverUI.SetActive(true);
+    }
+    public void Respawn()
+    {
+        transform.position = spawnPosition.position;
+        isDead = false;
+
+        gameOverUI.SetActive(false);
     }
 }
