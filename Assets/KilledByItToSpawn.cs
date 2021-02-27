@@ -9,6 +9,8 @@ public class KilledByItToSpawn : MonoBehaviour
     public bool shouldDestroyself = true;
     public int progressAmount = 0;
     public bool useCollider;
+    public bool destoryPlayerCollider = true;
+    bool triggered;
     // Start is called before the first frame update
     void Start()
     {
@@ -40,9 +42,23 @@ public class KilledByItToSpawn : MonoBehaviour
 
     void colliderPlayer(Collider2D collision)
     {
-        if (collision.GetComponent<PlayerMovement>())
+        if (collision.GetComponent<PlayerMovement>() && !collision.GetComponent<PlayerMovement>().isDead)
         {
-            collision.GetComponent<PlayerMovement>().Die();
+            collision.GetComponent<PlayerMovement>().Die(destoryPlayerCollider);
+            if (triggered)
+            {
+                var newStrings = new string[showDeathString.Length-1];
+                int i = 0;
+                foreach(var d in showDeathString)
+                {
+                    if (d != "increaseProgress")
+                    {
+                        newStrings[i] = d;
+                        i++;
+                    }
+                }
+                showDeathString = newStrings;
+            }
             Dialogues.Instance.showGameOverText(showDeathString);
             foreach (var ob in spawnObject)
             {
@@ -56,6 +72,12 @@ public class KilledByItToSpawn : MonoBehaviour
             if (shouldDestroyself)
             {
                 Destroy(gameObject);
+            }
+            else
+            {
+                triggered = true;
+                progressAmount = 0;
+
             }
         }
     }

@@ -10,8 +10,11 @@ public class Dialogues : Singleton<Dialogues>
     {
         {"killedByChest","You are penetrated by chestnut." },
         {"killedByInsect","You are eaten by insect." },
+        {"killedByWater","You are drown in water." },
 
         {"spawnNormalTree","But your death is not nothing, you grow into a tree." },
+        {"spawnwiderTree","Without limit in growing space, you get wider than normal." },
+        {"spawnLotus","But your death is not nothing, you grow into lotus" },
         {"increaseProgress","The progress of spreading to the world increased." },
         {"toRestart","Press R to respawn." },
         {"toUnderground","Down arrow / S\n\nGo Underground" },

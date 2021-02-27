@@ -15,7 +15,7 @@ public class PlayerMovement : MonoBehaviour
     bool jump = false;
     bool crouch = false;
     //public GameObject gameOverUI;
-    bool isDead;
+    public bool isDead;
     public Transform spawnPosition;
     public bool isUnderground;
     Rigidbody2D rb;
@@ -86,13 +86,16 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public void Die()
+    public void Die(bool destoryPlayerCollider = true)
     {
         isDead = true;
-        collider.enabled = false;
-        rb.gravityScale = 0;
-        rb.simulated = false;
-        //gameOverUI.SetActive(true);
+        if (destoryPlayerCollider)
+        {
+
+            collider.enabled = false;
+            rb.gravityScale = 0;
+            rb.simulated = false;
+        }
     }
     public void Respawn()
     {
@@ -102,6 +105,5 @@ public class PlayerMovement : MonoBehaviour
         rb.simulated = true;
         rb.gravityScale = 1;
         Dialogues.Instance.hideGameOverText();
-        //gameOverUI.SetActive(false);
     }
 }
