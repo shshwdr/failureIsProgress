@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class Dialogues : Singleton<Dialogues>
 {
+    int progress;
     static Dictionary<string,string> dialogues = new Dictionary<string, string>()
     {
         {"killedByChest","You are penetrated by chestnut." },
@@ -23,7 +24,7 @@ public class Dialogues : Singleton<Dialogues>
     public Text gameoverText;
     public Text hintText;
 
-    public Text progress;
+    public Text progressText;
 
 
 
@@ -77,6 +78,12 @@ public class Dialogues : Singleton<Dialogues>
     public void hideGameOverText()
     {
         hideText(gameoverText);
+    }
+
+    public void addProgress(int p)
+    {
+        progress += p;
+        progressText.text = progress + " %";
     }
 
     // Start is called before the first frame update

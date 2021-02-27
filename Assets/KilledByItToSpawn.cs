@@ -7,6 +7,7 @@ public class KilledByItToSpawn : MonoBehaviour
     public GameObject[] spawnObject;
     public string[] showDeathString;
     public bool shouldDestroyself = true;
+    public int progressAmount = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -33,6 +34,7 @@ public class KilledByItToSpawn : MonoBehaviour
                     ob.SetActive(true);
                 }
             }
+            Dialogues.Instance.addProgress(progressAmount);
             if (shouldDestroyself)
             {
                 Destroy(gameObject);
