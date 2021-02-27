@@ -19,19 +19,17 @@ public class UndergroundGenerator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isTriggering && (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow)))
+        if (toUnderground && isTriggering && (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow)))
         {
             player.transform.position = spawnPosition.position;
-            if (toUnderground)
-            {
-                player.GetComponent<Rigidbody2D>().gravityScale = 0;
-                player.GetComponent<PlayerMovement>().isUnderground = true;
-            }
-            else
-            {
-                player.GetComponent<Rigidbody2D>().gravityScale = 1;
-                player.GetComponent<PlayerMovement>().isUnderground = false;
-            }
+            player.GetComponent<Rigidbody2D>().gravityScale = 0;
+            player.GetComponent<PlayerMovement>().isUnderground = true;
+        }else if (!toUnderground && isTriggering && (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)))
+        {
+
+            player.transform.position = spawnPosition.position;
+            player.GetComponent<Rigidbody2D>().gravityScale = 1;
+            player.GetComponent<PlayerMovement>().isUnderground = false;
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
@@ -40,7 +38,16 @@ public class UndergroundGenerator : MonoBehaviour
         {
             isTriggering = true;
             player = collision.gameObject;
-            Dialogues.Instance.showActionText("toUnderground");
+            if (toUnderground)
+            {
+
+                Dialogues.Instance.showActionText("toUnderground");
+            }
+            else
+            {
+
+                Dialogues.Instance.showActionText("toUpperground");
+            }
         }
     }
 

@@ -14,17 +14,19 @@ public class PlayerMovement : MonoBehaviour
     Vector2 movement;
     bool jump = false;
     bool crouch = false;
-    public GameObject gameOverUI;
+    //public GameObject gameOverUI;
     bool isDead;
     public Transform spawnPosition;
     public bool isUnderground;
     Rigidbody2D rb;
+    Collider2D collider;
     // Start is called before the first frame update
     void Start()
     {
         controller = GetComponent<CharacterController2D>();
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
+        collider = GetComponent<Collider2D>();
     }
 
     // Update is called once per frame
@@ -87,13 +89,19 @@ public class PlayerMovement : MonoBehaviour
     public void Die()
     {
         isDead = true;
-        gameOverUI.SetActive(true);
+        collider.enabled = false;
+        rb.gravityScale = 0;
+        rb.simulated = false;
+        //gameOverUI.SetActive(true);
     }
     public void Respawn()
     {
         transform.position = spawnPosition.position;
         isDead = false;
-
-        gameOverUI.SetActive(false);
+        collider.enabled = true;
+        rb.simulated = true;
+        rb.gravityScale = 1;
+        Dialogues.Instance.hideGameOverText();
+        //gameOverUI.SetActive(false);
     }
 }

@@ -11,8 +11,12 @@ public class Dialogues : Singleton<Dialogues>
 
         {"spawnNormalTree","But your death is not nothing, you grow into a tree." },
         {"increaseProgress","The progress of spreading to the world increased." },
-        {"toRestart","Press R to respawn." }, 
+        {"toRestart","Press R to respawn." },
         {"toUnderground","Down arrow / S\n\nGo Underground" },
+        {"toUpperground","Up arrow / W\n\nGo Upperground" },
+
+        {"dieUnderground","You are too deep underground so you can't sprout." },
+        {"fertilize","But the soil is fertilized and the root get grow better" },
     };
 
     public Text actionText;
@@ -21,30 +25,58 @@ public class Dialogues : Singleton<Dialogues>
 
     public Text progress;
 
+
+
+    public void showText(Text te, string[] dialogTitles)
+    {
+        string dialogTitle = "";
+        foreach(var d in dialogTitles)
+        {
+
+            if (!dialogues.ContainsKey(d))
+            {
+                te.gameObject.SetActive(true);
+                te.text = "THIS IS A BUG! action title " + d + "DOES NOT EXISTTTTTT!!!";
+                return;
+            }
+            dialogTitle += dialogues[d];
+            dialogTitle += "\n";
+        }
+        if (te.transform.parent. gameObject.active)
+        {
+            te.text = "THIS IS A BUG! Action text " + dialogTitle + " was active!!!";
+        }
+        te.transform.parent.gameObject.SetActive(true);
+        te.text = dialogTitle;
+    }
+
+    public void hideText(Text te)
+    {
+        if (!te.transform.parent.gameObject.active)
+        {
+            te.transform.parent.gameObject.SetActive(true);
+            te.text = "THIS IS A BUG! Action text was not active.";
+        }
+        te.transform.parent.gameObject.SetActive(false);
+    }
     public void showActionText(string dialogTitle)
     {
-        if (!dialogues.ContainsKey(dialogTitle))
-        {
-            actionText.gameObject.SetActive(true);
-            actionText.text = "THIS IS A BUG! action title " + dialogTitle + "DOES NOT EXISTTTTTT!!!";
-            return;
-        }
-        if (actionText.gameObject.active)
-        {
-            actionText.text = "THIS IS A BUG! Action text " + dialogTitle +  " was active!!!";
-        }
-        actionText.gameObject.SetActive(true);
-        actionText.text = dialogues[dialogTitle];
+        showText(actionText, new string[] { dialogTitle });
     }
 
     public void hideActionText()
     {
-        if (!actionText.gameObject.active)
-        {
-            actionText.gameObject.SetActive(true);
-            actionText.text = "THIS IS A BUG! Action text was not active.";
-        }
-        actionText.gameObject.SetActive(false);
+        hideText(actionText);
+    }
+
+    public void showGameOverText(string[] dialogTitle)
+    {
+        showText(gameoverText, dialogTitle);
+    }
+
+    public void hideGameOverText()
+    {
+        hideText(gameoverText);
     }
 
     // Start is called before the first frame update

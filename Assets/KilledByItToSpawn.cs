@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class KilledByItToSpawn : MonoBehaviour
 {
-    public GameObject spawnObject;
+    public GameObject[] spawnObject;
+    public string[] showDeathString;
+    public bool shouldDestroyself = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,10 +24,20 @@ public class KilledByItToSpawn : MonoBehaviour
         if(collision.GetComponent<PlayerMovement>())
         {
             collision.GetComponent<PlayerMovement>().Die();
-            if (!spawnObject.active)
+            Dialogues.Instance.showGameOverText(showDeathString);
+            foreach (var ob in spawnObject)
             {
-                spawnObject.SetActive(true);
+
+                if (ob && !ob.active)
+                {
+                    ob.SetActive(true);
+                }
+            }
+            if (shouldDestroyself)
+            {
+                Destroy(gameObject);
             }
         }
+
     }
 }
