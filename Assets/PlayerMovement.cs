@@ -8,17 +8,23 @@ public class PlayerMovement : MonoBehaviour
 
     Animator animator;
     public float runSpeed = 4f;
+    public float undergroundSpeed = 4f;
     float horizontalMove = 0f;
+    float verticalMove = 0f;
+    Vector2 movement;
     bool jump = false;
     bool crouch = false;
     public GameObject gameOverUI;
     bool isDead;
     public Transform spawnPosition;
+    public bool isUnderground;
+    Rigidbody2D rb;
     // Start is called before the first frame update
     void Start()
     {
         controller = GetComponent<CharacterController2D>();
         animator = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -32,8 +38,18 @@ public class PlayerMovement : MonoBehaviour
             }
             return;
         }
-        horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
-        animator.SetFloat("Speed", Mathf.Abs(horizontalMove));
+        horizontalMove = Input.GetAxisRaw("Horizontal");
+        verticalMove= Input.GetAxisRaw("Vertical");
+        float speed = Mathf.Abs(horizontalMove);
+        if (isUnderground)
+        {
+            speed = Mathf.Abs(horizontalMove) + Mathf.Abs(verticalMove);
+            movement.x = horizontalMove;
+            movement.y = verticalMove;
+
+            movement = Vector2.ClampMagnitude(movement, 1);
+        }
+        animator.SetFloat("Speed", speed);
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
             jump = true;
@@ -54,8 +70,18 @@ public class PlayerMovement : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        controller.Move(horizontalMove * Time.fixedDeltaTime, crouch, jump);
-        jump = false;
+        if (isUnderground)
+        {
+
+            rb.MovePosition(rb.position + movement * undergroundSpeed * Time.fixedDeltaTime);
+            //flip
+        }
+        else
+        {
+
+            controller.Move(horizontalMove*runSpeed * Time.fixedDeltaTime, crouch, jump);
+            jump = false;
+        }
     }
 
     public void Die()
