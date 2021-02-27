@@ -9,6 +9,7 @@ public class Dialogues : Singleton<Dialogues>
     static Dictionary<string,string> dialogues = new Dictionary<string, string>()
     {
         {"killedByChest","You are penetrated by chestnut." },
+        {"killedByInsect","You are eaten by insect." },
 
         {"spawnNormalTree","But your death is not nothing, you grow into a tree." },
         {"increaseProgress","The progress of spreading to the world increased." },
