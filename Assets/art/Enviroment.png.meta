@@ -3187,9 +3187,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 525
-        y: 208
+        y: 232
         width: 199
-        height: 208
+        height: 184
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -3220,6 +3220,27 @@ TextureImporter:
       bones: []
       spriteID: 65cbe102fd24c2f00800000000000000
       internalID: 1093322335628213334
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enviroment_4
+      rect:
+        serializedVersion: 2
+        x: 246
+        y: 352
+        width: 37
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3235302e9052d5070800000000000000
+      internalID: 8096668429458821923
       vertices: []
       indices: 
       edges: []
