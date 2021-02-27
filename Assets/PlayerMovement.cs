@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Cinemachine;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,10 +17,15 @@ public class PlayerMovement : MonoBehaviour
     bool crouch = false;
     //public GameObject gameOverUI;
     public bool isDead;
-    public Transform spawnPosition;
     public bool isUnderground;
     Rigidbody2D rb;
     Collider2D collider;
+
+    List<GameObject> activePositions;
+    public CinemachineVirtualCamera cineCam;
+    public GameObject spawnPositions;
+    int currentSpawnPoint = 0;
+    bool isSelectingSpawnPoint = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -34,9 +40,26 @@ public class PlayerMovement : MonoBehaviour
     {
         if (isDead)
         {
-            if (Input.GetKeyDown(KeyCode.R))
+            if (Input.GetKeyDown(KeyCode.R) && !isSelectingSpawnPoint)
             {
-                Respawn();
+                SelectSpawnPoint();
+            }
+            if (isSelectingSpawnPoint)
+            {
+                if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
+                {
+                    currentSpawnPoint++;
+                    updateCamera();
+                }
+                if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
+                {
+                    currentSpawnPoint--;
+                    updateCamera();
+                }
+                if (Input.GetKeyDown(KeyCode.Space))
+                {
+                    Respawn();
+                }
             }
             return;
         }
@@ -97,13 +120,55 @@ public class PlayerMovement : MonoBehaviour
             rb.simulated = false;
         }
     }
+
+    public void updateCamera()
+    {
+        if (currentSpawnPoint>= activePositions.Count)
+        {
+            currentSpawnPoint = 0;
+        }
+        if (currentSpawnPoint <0)
+        {
+            currentSpawnPoint = activePositions.Count-1;
+        }
+        cineCam.Follow = activePositions[currentSpawnPoint].transform;
+    }
+
+    public void SelectSpawnPoint()
+    {
+        Dialogues.Instance.hideGameOverText();
+        activePositions = new List<GameObject>();
+
+        Dialogues.Instance.showActionText("selectSpawn");
+        isSelectingSpawnPoint = true;
+        currentSpawnPoint = 0;
+        float closestDistance = 100000000;
+        for (int i= 0;i < spawnPositions.transform.childCount; i++)
+        {
+            var go = spawnPositions.transform.GetChild(i).gameObject;
+            if (go.active)
+            {
+                activePositions.Add(go);
+                if ((go.transform.position - transform.position).magnitude< closestDistance)
+                {
+                    closestDistance = (go.transform.position - transform.position).magnitude;
+                    currentSpawnPoint = activePositions.Count -1;
+                }
+
+            }
+        }
+        updateCamera();
+    }
     public void Respawn()
     {
-        transform.position = spawnPosition.position;
+        transform.position = activePositions[currentSpawnPoint].transform.position;
         isDead = false;
         collider.enabled = true;
         rb.simulated = true;
         rb.gravityScale = 1;
-        Dialogues.Instance.hideGameOverText();
+        Dialogues.Instance.hideActionText();
+        isSelectingSpawnPoint = false;
+        cineCam.Follow = transform;
+        isUnderground = false;
     }
 }

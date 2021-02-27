@@ -19,6 +19,8 @@ public class Dialogues : Singleton<Dialogues>
         {"toRestart","Press R to respawn." },
         {"toUnderground","Down arrow / S\n\nGo Underground" },
         {"toUpperground","Up arrow / W\n\nGo Upperground" },
+        {"selectSpawn","Left / Right arrow to select spawn point.\nSpace to respawn" },
+
 
         {"dieUnderground","You are too deep underground so you can't sprout." },
         {"fertilize","But the soil is fertilized and the root get grow better" },

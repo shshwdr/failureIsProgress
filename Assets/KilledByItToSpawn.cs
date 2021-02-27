@@ -45,20 +45,20 @@ public class KilledByItToSpawn : MonoBehaviour
         if (collision.GetComponent<PlayerMovement>() && !collision.GetComponent<PlayerMovement>().isDead)
         {
             collision.GetComponent<PlayerMovement>().Die(destoryPlayerCollider);
-            if (triggered)
-            {
-                var newStrings = new string[showDeathString.Length-1];
-                int i = 0;
-                foreach(var d in showDeathString)
-                {
-                    if (d != "increaseProgress")
-                    {
-                        newStrings[i] = d;
-                        i++;
-                    }
-                }
-                showDeathString = newStrings;
-            }
+            //if (triggered)
+            //{
+            //    var newStrings = new string[showDeathString.Length-1];
+            //    int i = 0;
+            //    foreach(var d in showDeathString)
+            //    {
+            //        if (d != "increaseProgress")
+            //        {
+            //            newStrings[i] = d;
+            //            i++;
+            //        }
+            //    }
+            //    showDeathString = newStrings;
+            //}
             Dialogues.Instance.showGameOverText(showDeathString);
             foreach (var ob in spawnObject)
             {
@@ -75,9 +75,23 @@ public class KilledByItToSpawn : MonoBehaviour
             }
             else
             {
+                if (!triggered)
+                {
+
+                    var newStrings = new string[showDeathString.Length - 1];
+                    int i = 0;
+                    foreach (var d in showDeathString)
+                    {
+                        if (d != "increaseProgress")
+                        {
+                            newStrings[i] = d;
+                            i++;
+                        }
+                    }
+                    showDeathString = newStrings;
+                }
                 triggered = true;
                 progressAmount = 0;
-
             }
         }
     }
