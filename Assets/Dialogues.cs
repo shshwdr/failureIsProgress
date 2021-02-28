@@ -12,7 +12,7 @@ public class Dialogues : Singleton<Dialogues>
         {"killedByInsect","You are eaten by insect." },
         {"killedByWater","You are drown in water." },
 
-        {"spawnNormalTree","But your death is not nothing, you grow into a tree." },
+        {"spawnNormalTree","But your death is not nothing, you grow into a leaf." },
         {"spawnwiderTree","Without limit in growing space, you get wider than normal." },
         {"spawnLotus","But your death is not nothing, you grow into lotus" },
         {"increaseProgress","The progress of spreading to the world increased." },
@@ -21,6 +21,8 @@ public class Dialogues : Singleton<Dialogues>
         {"toUpperground","Up arrow / W\n\nGo Upperground" },
         {"selectSpawn","Left / Right arrow to select spawn point.\nSpace to respawn" },
 
+
+        {"hintForRoot","Ground here looks barren..." },
 
         {"dieUnderground","You are too deep underground so you can't sprout." },
         {"fertilize","But the soil is fertilized and the root get grow better" },

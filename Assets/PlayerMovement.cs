@@ -124,6 +124,7 @@ public class PlayerMovement : MonoBehaviour
     {
         isDead = true;
         animator.SetTrigger("die");
+        animator.SetBool("jump",false);
         if (destoryPlayerCollider)
         {
 

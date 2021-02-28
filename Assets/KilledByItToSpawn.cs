@@ -5,6 +5,7 @@ using UnityEngine;
 public class KilledByItToSpawn : MonoBehaviour
 {
     public GameObject[] spawnObject;
+    public GameObject[] destroyObject;
     public string[] showDeathString;
     public bool shouldDestroyself = true;
     public int progressAmount = 0;
@@ -77,6 +78,13 @@ public class KilledByItToSpawn : MonoBehaviour
             }
             triggered = true;
             progressAmount = 0;
+        }
+        foreach(var go in destroyObject)
+        {
+            if (go && go.active)
+            {
+                go.SetActive(false);
+            }
         }
         player.FullyDie();
     }
