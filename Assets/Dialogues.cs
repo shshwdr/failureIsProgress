@@ -16,9 +16,10 @@ public class Dialogues : Singleton<Dialogues>
         {"winGame","The seed found a place next to the large tree. \nSoon the sprout will grow up and generate more and more seed and they will spread to the world." },
 
         {"spawnNormalTree","\nBut the death is not in vain, it grows into grass. Use it to journey further to the world." },
-       // {"spawnwiderTree","Without limit in growing space, you get wider than normal." },
+        {"spawnBlossom","\nMore energy burst from the seed, this time it's more than just grass." },
+        {"spawnFlower","\nThe golden flower is going to shine in every conner of the world." },
         {"spawnRoot","The seed fertilize the ground and you can explore underground." },
-        {"spawnFern","\nBut the death is not in vain, it grows into grass. Use it to journey further to the world." },
+        {"spawnFern","\nWith the limit oxygen in cave, it grows into fern." },
         {"spawnOnCliff","\nBut the death is not in vain. The bird take it to the cliff and drop it there, the seed start growing on cliff." },
        
         {"spawnLotus","\nBut your death is not in vain, you grow into lotus." },

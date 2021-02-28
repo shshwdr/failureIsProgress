@@ -45,7 +45,6 @@ public class KilledByItToSpawn : MonoBehaviour
     IEnumerator fullyKill()
     {
         yield return new WaitForSeconds(1.5f);
-        Dialogues.Instance.showGameOverText(showDeathString);
         bool isSettingActive = false;
         foreach (var ob in spawnObject)
         {
@@ -85,6 +84,8 @@ public class KilledByItToSpawn : MonoBehaviour
             }
             
         }
+
+        Dialogues.Instance.showGameOverText(showDeathString);
         if (shouldDestroyself)
         {
             Destroy(gameObject);
