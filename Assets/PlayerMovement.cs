@@ -81,7 +81,7 @@ public class PlayerMovement : MonoBehaviour
             movement = Vector2.ClampMagnitude(movement, 1);
         }
         animator.SetFloat("speed", speed);
-        if (Input.GetKeyDown(KeyCode.UpArrow))
+        if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
         {
             jump = true;
         };

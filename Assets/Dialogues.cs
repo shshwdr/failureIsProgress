@@ -8,6 +8,9 @@ public class Dialogues : Singleton<Dialogues>
     int progress;
     static Dictionary<string,string> dialogues = new Dictionary<string, string>()
     {
+
+        {"start","The seed want to spread it to the world. It does not know what does world mean but at least it can start with the area that it can move to." },
+
         {"killedByChest","The seed is penetrated by chestnut." },
         {"killedByInsect","The seed is eaten by insect." },
         {"killedByWater","The seed is drown in water." },
@@ -20,8 +23,7 @@ public class Dialogues : Singleton<Dialogues>
         {"spawnFlower","\nThe golden flower is going to shine in every conner of the world." },
         {"spawnRoot","The seed fertilize the ground and you can explore underground." },
         {"spawnFern","\nWith the limit oxygen in cave, it grows into fern." },
-        {"spawnOnCliff","\nBut the death is not in vain. The bird take it to the cliff and drop it there, the seed start growing on cliff." },
-       
+        {"spawnOnCliff","\nBut the death is not in vain. The bird take it to the cliff and drop it there, the seed start growing into vine on cliff." },
         {"spawnLotus","\nBut your death is not in vain, you grow into lotus." },
         {"spawnWheat","\nBut the death is not in vain, it grows into wheat and spread to every place with human. It becomes one of the most popular crops in the world" },
         
@@ -36,7 +38,12 @@ public class Dialogues : Singleton<Dialogues>
         {"hintForRoot","Ground here looks barren..." },
 
         {"dieUnderground","You are too deep underground so you can't sprout." },
-        {"fertilize","But the soil is fertilized and the root get grow better" },
+        {"fertilize","But the soil is fertilized and the root get grow better..there might be more space to explore" },
+
+
+
+        {"progressFull","The seed is spread to the whole world. You can see it everywhere, the forest, the mountain, in caves and on the table. Thanks for help it!" },
+
     };
 
     public Text actionText;
@@ -50,6 +57,7 @@ public class Dialogues : Singleton<Dialogues>
     public void showText(Text te, string[] dialogTitles)
     {
         string dialogTitle = "";
+        int i = 0;
         foreach(var d in dialogTitles)
         {
 
@@ -60,7 +68,12 @@ public class Dialogues : Singleton<Dialogues>
                 return;
             }
             dialogTitle += dialogues[d];
-            dialogTitle += "\n";
+            if(i != dialogTitles.Length - 1)
+            {
+
+                dialogTitle += "\n";
+            }
+            i++;
         }
         if (te.transform.parent. gameObject.active)
         {
