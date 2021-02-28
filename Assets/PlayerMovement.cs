@@ -17,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
     bool crouch = false;
     //public GameObject gameOverUI;
     public bool isDead;
+    public bool isFullyDead;
     public bool isUnderground;
     Rigidbody2D rb;
     Collider2D collider;
@@ -40,30 +41,35 @@ public class PlayerMovement : MonoBehaviour
     {
         if (isDead)
         {
-            if (Input.GetKeyDown(KeyCode.R) && !isSelectingSpawnPoint)
+            if (isFullyDead)
             {
-                SelectSpawnPoint();
+                if (Input.GetKeyDown(KeyCode.R) && !isSelectingSpawnPoint)
+                {
+                    SelectSpawnPoint();
+                }
+                if (isSelectingSpawnPoint)
+                {
+                    if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
+                    {
+                        currentSpawnPoint++;
+                        updateCamera();
+                    }
+                    if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
+                    {
+                        currentSpawnPoint--;
+                        updateCamera();
+                    }
+                    if (Input.GetKeyDown(KeyCode.Space))
+                    {
+                        Respawn();
+                    }
+                }
             }
-            if (isSelectingSpawnPoint)
-            {
-                if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
-                {
-                    currentSpawnPoint++;
-                    updateCamera();
-                }
-                if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
-                {
-                    currentSpawnPoint--;
-                    updateCamera();
-                }
-                if (Input.GetKeyDown(KeyCode.Space))
-                {
-                    Respawn();
-                }
-            }
+            
             return;
         }
         horizontalMove = Input.GetAxisRaw("Horizontal");
+        //Debug.Log("horizontal move " + horizontalMove);
         verticalMove= Input.GetAxisRaw("Vertical");
         float speed = Mathf.Abs(horizontalMove);
         if (isUnderground)
@@ -74,7 +80,7 @@ public class PlayerMovement : MonoBehaviour
 
             movement = Vector2.ClampMagnitude(movement, 1);
         }
-        animator.SetFloat("Speed", speed);
+        animator.SetFloat("speed", speed);
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
             jump = true;
@@ -91,7 +97,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnLanding()
     {
-        animator.SetBool("Jump", false);
+        animator.SetBool("jump", false);
     }
     private void FixedUpdate()
     {
@@ -109,9 +115,15 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    public void FullyDie()
+    {
+        isFullyDead = true;
+    }
+
     public void Die(bool destoryPlayerCollider = true)
     {
         isDead = true;
+        animator.SetTrigger("die");
         if (destoryPlayerCollider)
         {
 
@@ -163,6 +175,7 @@ public class PlayerMovement : MonoBehaviour
     {
         transform.position = activePositions[currentSpawnPoint].transform.position;
         isDead = false;
+        isFullyDead = false;
         collider.enabled = true;
         rb.simulated = true;
         rb.gravityScale = 1;
@@ -170,5 +183,7 @@ public class PlayerMovement : MonoBehaviour
         isSelectingSpawnPoint = false;
         cineCam.Follow = transform;
         isUnderground = false;
+        animator.Rebind();
+        animator.Update(0f);
     }
 }
