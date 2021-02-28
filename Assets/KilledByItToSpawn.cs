@@ -46,38 +46,68 @@ public class KilledByItToSpawn : MonoBehaviour
     {
         yield return new WaitForSeconds(1.5f);
         Dialogues.Instance.showGameOverText(showDeathString);
+        bool isSettingActive = false;
         foreach (var ob in spawnObject)
         {
 
             if (ob && !ob.active)
             {
                 ob.SetActive(true);
+                isSettingActive = true;
             }
         }
-        Dialogues.Instance.addProgress(progressAmount);
+        if (isSettingActive)
+        {
+
+            Dialogues.Instance.addProgress(progressAmount);
+
+        }
+        if (!isSettingActive)
+        {
+            foreach (var dd in showDeathString)
+            {
+                if (dd == "increaseProgress")
+                {
+                    var newStrings = new string[showDeathString.Length - 1];
+                    int i = 0;
+                    foreach (var d in showDeathString)
+                    {
+                        if (d != "increaseProgress")
+                        {
+                            newStrings[i] = d;
+                            i++;
+                        }
+                    }
+                    showDeathString = newStrings;
+                    break;
+
+                }
+            }
+            
+        }
         if (shouldDestroyself)
         {
             Destroy(gameObject);
         }
         else
         {
-            if (!triggered)
-            {
+            //if (!triggered)
+            //{
 
-                var newStrings = new string[showDeathString.Length - 1];
-                int i = 0;
-                foreach (var d in showDeathString)
-                {
-                    if (d != "increaseProgress")
-                    {
-                        newStrings[i] = d;
-                        i++;
-                    }
-                }
-                showDeathString = newStrings;
-            }
-            triggered = true;
-            progressAmount = 0;
+            //    var newStrings = new string[showDeathString.Length - 1];
+            //    int i = 0;
+            //    foreach (var d in showDeathString)
+            //    {
+            //        if (d != "increaseProgress")
+            //        {
+            //            newStrings[i] = d;
+            //            i++;
+            //        }
+            //    }
+            //    showDeathString = newStrings;
+            //}
+            //triggered = true;
+            //progressAmount = 0;
         }
         foreach(var go in destroyObject)
         {

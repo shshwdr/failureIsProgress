@@ -8,15 +8,25 @@ public class Dialogues : Singleton<Dialogues>
     int progress;
     static Dictionary<string,string> dialogues = new Dictionary<string, string>()
     {
-        {"killedByChest","You are penetrated by chestnut." },
-        {"killedByInsect","You are eaten by insect." },
-        {"killedByWater","You are drown in water." },
+        {"killedByChest","The seed is penetrated by chestnut." },
+        {"killedByInsect","The seed is eaten by insect." },
+        {"killedByWater","The seed is drown in water." },
+        {"killedByHoe","The seed is cut by hoe." },
+        {"killedByBird","The seed is eaten by bird. " },
+        {"winGame","The seed found a place next to the large tree. \nSoon the sprout will grow up and generate more and more seed and they will spread to the world." },
 
-        {"spawnNormalTree","But your death is not nothing, you grow into a leaf." },
-        {"spawnwiderTree","Without limit in growing space, you get wider than normal." },
-        {"spawnLotus","But your death is not nothing, you grow into lotus" },
-        {"increaseProgress","The progress of spreading to the world increased." },
-        {"toRestart","Press R to respawn." },
+        {"spawnNormalTree","\nBut the death is not in vain, it grows into grass. Use it to journey further to the world." },
+       // {"spawnwiderTree","Without limit in growing space, you get wider than normal." },
+        {"spawnRoot","The seed fertilize the ground and you can explore underground." },
+        {"spawnFern","\nBut the death is not in vain, it grows into grass. Use it to journey further to the world." },
+        {"spawnOnCliff","\nBut the death is not in vain. The bird take it to the cliff and drop it there, the seed start growing on cliff." },
+       
+        {"spawnLotus","\nBut your death is not in vain, you grow into lotus." },
+        {"spawnWheat","\nBut the death is not in vain, it grows into wheat and spread to every place with human. It becomes one of the most popular crops in the world" },
+        
+        {"increaseProgress","\nThe progress of spreading to the world increased." },
+        {"toRestart","\nPress R to respawn." },
+        {"keepPlaying","\nThanks for playing. You can keep explore the game." },
         {"toUnderground","Down arrow / S\n\nGo Underground" },
         {"toUpperground","Up arrow / W\n\nGo Upperground" },
         {"selectSpawn","Left / Right arrow to select spawn point.\nSpace to respawn" },
